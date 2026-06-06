@@ -29,10 +29,28 @@ Proved that query wording shifts retrieval scores gradually.
 Changing the query changes what gets retrieved — 
 foundation of how RAG systems work.
 
+## What I Discovered
+
+During testing I found that all-MiniLM-L6-v2 measures 
+topic similarity, not sentiment or polarity. Two opposite 
+sentences scored higher than two sentences with the same 
+meaning — because they shared topic words.
+
+This creates a dangerous failure mode in security systems 
+called a false negative — where a threat exists but the 
+system says everything is fine. A log line saying 
+"login successful" and "login failed" could be treated 
+as equally similar to a threat pattern, causing real 
+intrusions to go undetected.
+
+False positives waste time. False negatives cost you 
+everything.
+
 ## Tools
 - Python
 - sentence-transformers
 - numpy
+- streamlit
 
 ## Run it
 pip install sentence-transformers numpy
